@@ -15,16 +15,43 @@
   </view>
 </template>
 
-<script setup lang="ts">
+<!-- <script setup lang="ts"></script> -->
+<script>
   import { ref } from "vue";
+  import { Loader } from "@googlemaps/js-api-loader";
+  const loader = new Loader({
+    apiKey: "AIzaSyDDiCLXghb5ALx0FvTuHTw40dO2hn5f3_8",
+    version: "weekly",
+    libraries: ["places"]
+  });
   
-
-
-
-
-
-
-
+  export default {
+    data() {
+      return{}
+    },
+    mounted() {
+      this.initMap()
+    },
+    methods:{
+      initMap() {
+        loader
+          .load()
+          .then((google) => {
+            const map = new google.maps.Map(
+              document.getElementById("map_canvas"),
+            {
+              center: { lat: 35.7246, lng: 140.0581 },
+              zoom: 13,
+              disableDefaultUI: true
+            }
+          )
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+      },
+    },
+  }
 
 </script>
 
